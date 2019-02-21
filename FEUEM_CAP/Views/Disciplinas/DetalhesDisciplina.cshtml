@@ -1,0 +1,50 @@
+﻿@model FEUEM_CAP.Models.Disciplina
+
+@{
+    ViewBag.Title = "DetalhesCurso";
+}
+
+<h2>DetalhesCurso</h2>
+
+<div>
+    <h4>Disciplina</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Curso.NomeCurso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Curso.NomeCurso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeDisciplina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeDisciplina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ano)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ano)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Semestre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Semestre)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("EditarDepartamentoarCategoriaarCurso", "EditarDisciplina", new { id = Model.DisciplinaId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

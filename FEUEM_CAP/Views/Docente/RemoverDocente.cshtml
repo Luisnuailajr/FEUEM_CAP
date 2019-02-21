@@ -1,0 +1,96 @@
+﻿@model FEUEM_CAP.Models.Docente
+
+@{
+    ViewBag.Title = "RemoverCurso";
+}
+
+<h2>RemoverCurso</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Docente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.DescricaoCategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.DescricaoCategoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NivelAcademico.DescricaoNivelAcademico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NivelAcademico.DescricaoNivelAcademico)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeDocente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeDocente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApelidoDocente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApelidoDocente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactoTelefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactoTelefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactoEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactoEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nuit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nuit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nib)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nib)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroConta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroConta)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="RemoverCurso" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

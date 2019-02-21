@@ -1,0 +1,47 @@
+﻿@model FEUEM_CAP.Models.Categoria
+
+@{
+    ViewBag.Title = "Adicionar categoria";
+}
+
+<h2>Adição de nova categoria</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4 id="DescForm">Categoria</h4>
+        <hr />
+        <fieldset id="FormularioAdicaoCategoria">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.DescricaoCategoria, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DescricaoCategoria, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DescricaoCategoria, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group" id="BotoesCategoria">
+                <div class="col-md-offset-2 col-md-10">
+                    <a id="Novo" href="@Url.Action("Index")" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Voltar
+                    </a>
+                    <input type="submit" value="Gravar" class="btn btn-success glyphicon-arrow-left"/>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

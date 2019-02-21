@@ -1,0 +1,172 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+#NavBar {
+    background-color:gray ;
+    border-bottom-color: gray;
+    
+      
+    
+}
+
+li {
+    font-size: 13pt;
+    margin-left: 7px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+li:hover {
+    /*padding: 3px;*/
+    background-color: darkgray;
+    border-radius: 10px;
+}
+
+#Footer {
+    text-align: center;
+    color:dimgrey ;
+}
+h2{
+    font-size: 35pt; 
+    color: cornflowerblue; 
+    text-align: center; 
+    padding: 20px;
+}
+
+th {
+    text-align: center;
+}
+
+th {
+    background-color: lightgray;
+    color: white;
+    padding: 10px;
+}
+
+#acoes {
+    background-color: dodgerblue;
+}
+#DetalhesModal {
+    position:relative ; 
+    top:80% ;
+    left: 80%;
+}
+
+#botaoDeAccao {
+    position: relative; 
+    left: 21%;
+}
+
+
+#botaoDeAccao.add {
+    position: relative; 
+    left: 13%;
+}
+
+#DescForm {
+    font-weight: lighter;
+    font-size: 14pt;
+    color: gray;
+    text-align: center;
+}
+#FormularioAdicao {
+    padding: 30px;
+    position: relative;
+    left: 5%;
+}
+#FormularioAdicaoDisc, #FormularioAdicaoCategoria {
+    padding: 30px;
+    position: relative;
+    left: 20%;
+}
+#Botoes {
+    position: relative;
+    left: 17%;
+}
+#Botoes input {
+    position: relative;
+    left: 14%;
+}
+#BotoesDep {
+    position: relative;
+    left: 22.5%;
+}
+#BotoesDep input {
+    position: relative;
+    left: 13%;
+}
+#BotoesDisc {
+    position: relative;
+    left: 22%;
+}
+#BotoesDisc input {
+    position: relative;
+    left: 13%;
+}
+
+#BotoesCategoria {
+    position: relative;
+}
+#BotoesCategoria input {
+    position: relative;
+    left: 14%;
+}
+table th {
+    font-size: 10pt;
+    padding: 10px;
+}
+#Novo {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+#FormularioAdicaoDep {
+    position: center;
+}
+.control-label, label {
+    font-family: "Roboto Slab", "Times new roman" serif;
+    font-size: 13pt;
+    font-weight: normal;
+    color: cornflowerblue;
+    
+}
+#FormDocente {
+    border-radius: 15px;
+    color: gray;
+}
+
+#FormDocente fieldset {
+    padding: 10px;
+}
+
+#FormDocente fieldset legend {
+    color: darkgrey;
+    padding: 10px;
+    font-size: 12pt;
+    text-align: center;
+    cursor: default;
+}
+#Gravar {
+    text-align: left;
+}

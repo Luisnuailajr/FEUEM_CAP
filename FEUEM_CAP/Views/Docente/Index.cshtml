@@ -1,0 +1,58 @@
+﻿@model IEnumerable<FEUEM_CAP.Models.Docente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Gestão de docentes</h2>
+
+<p>
+    <a id="Novo" href="@Url.Action("AdicionarDocente")" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>
+        Adicionar docente
+    </a>
+</p>
+
+<table id="gridDados">
+    <thead>
+        <tr>
+            <th data-column-id="ApelidoDocente" data-order="asc">Apelido</th>
+            <th data-column-id="NomeDocente">Nome</th>
+            <th data-column-id="ContactoTelefone">Nº de Telefone</th>
+            <th data-column-id="ContactoEmail">Email</th>
+            <th data-column-id="Nuit">NUIT</th>
+            <th data-column-id="Nib">NIB</th>
+            <th data-column-id="NumeroConta">Nº de conta</th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts{
+    <script src="~/Scripts/jquery.bootgrid.js"></script>
+    <script type="text/javascript">
+        $(document).ready(ConfigurarControles);
+
+        var traducao =
+        {
+            infos: "Mostrando {{ctx.start}} até {{ctx.end}} de {{ctx.total}} registos",
+            loading: "A carregar ...",
+            noResults: "Sem dados a exibir",
+            refresh: "Actalizar dados",
+            search: "Pesquisar"
+        }
+
+        function ConfigurarControles() {
+            $("#gridDados").bootgrid(
+                {
+                    ajax: true,
+                    url: "@Url.Action("ListarDocentes")",
+                    labels: traducao,
+                    searchSettings: {
+                        characters: 2
+                    }
+                });
+        }
+
+
+    </script>
+}

@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Cursos";
+}
+
+<h2>Gestão de cursos</h2>
+
+<p>
+@*@Html.ActionLink("Novo", "AdicionarDocente")*@
+<p>
+    <a id="Novo" href="#" class="btn btn-success" data-action="AdicionarCurso">
+        <span class="glyphicon glyphicon-plus"></span>
+        Adicionar curso
+    </a>
+</p>
+
+<table id="gridDados">
+    <thead>
+    <tr>
+        <th data-column-id="NomeCurso" data-order="asc">Nome do Curso</th>
+        <th data-column-id="Duracao">Duração</th>
+        <th data-column-id="AnoCriacao">Ano de criação</th>
+        <th data-column-id="NomeDepartamento">Nome do Departamento</th>
+        <th id="separador"></th>
+        <th data-formatter="accoes"></th>
+    </tr>
+    </thead>
+</table>
+
+<div class="modal fade" id="minhaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="conteudoModal"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/jquery.bootgrid.js"></script>
+    <script type="text/javascript">
+
+        var controller = "Curso";
+
+        $(document).ready(ConfigurarControles);
+
+        var traducao =
+        {
+            infos: "Mostrando {{ctx.start}} até {{ctx.end}} de {{ctx.total}} registos",
+            loading: "A carregar ...",
+            noResults: "Sem dados a exibir",
+            refresh: "Actalizar dados",
+            search: "Pesquisar"
+        }
+
+        function ConfigurarControles() {
+            var grid = $("#gridDados").bootgrid(
+                {
+                    ajax: true,
+                    url: "@Url.Action("ListarCursos")",
+                    labels: traducao,
+                    searchSettings: {
+                        characters: 1
+                    },
+                    formatters: {
+                        "accoes": function (column, row)
+                        {
+                            return "<a href='#' class='btn btn-info' ' data-acao='DetalhesCurso' data-row-id='" + row.CursoId + "'>" +
+                                "<span class ='glyphicon glyphicon-list'></span></a> "+
+                                "<a href='#' class='btn btn-warning' data-acao='EditarCurso' data-row-id='" + row.CursoId + "'>" +
+                                "<span class = 'glyphicon glyphicon-edit'></span></a> " +
+                                "<a href='#' class='btn btn-danger' data-acao='RemoverCurso' data-row-id='" + row.CursoId + "'>" +
+                                "<span class = 'glyphicon glyphicon-trash'></span></a>";
+                        }
+                    }
+                });
+
+            grid.on("loaded.rs.jquery.bootgrid", function() {
+
+                grid.find("a.btn").each(function (index, elemento) {
+
+                    var botaoAcao = $(elemento);
+                    var acao = botaoAcao.data("acao");
+                    var idEntidade = botaoAcao.data("row-id");
+
+                    botaoAcao.on("click",
+                        function () {
+
+                            abrirModal(acao, idEntidade);
+
+                        });
+
+                });
+
+            });
+
+            $("a.btn").click(function () {
+                var acao = $(this).data("action");
+                abrirModal(acao);
+            });
+        }
+
+        function abrirModal(acao, parametro) {
+
+            var url = "/{ctrl}/{acao}/{parametro}";
+            url = url.replace("{ctrl}", controller);
+            url = url.replace("{acao}", acao);
+
+            if (parametro != null) {
+
+                url = url.replace("{parametro}", parametro);
+
+            } else {
+
+                url = url.replace("{parametro}", "");
+            }
+
+            $("#conteudoModal").load(url,
+                function() {
+                    $("#minhaModal").modal('show');
+                });
+        }
+    </script>
+
+}

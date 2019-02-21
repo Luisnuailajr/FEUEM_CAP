@@ -1,0 +1,69 @@
+﻿@model FEUEM_CAP.Models.Disciplina
+
+@{
+    ViewBag.Title = "Adicionar disciplina";
+}
+
+<h2>Adição de nova disciplina</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4 id="DescForm">Formulário de cadastro de disciplina</h4>
+        <hr />
+        <fieldset id="FormularioAdicaoDisc">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NomeDisciplina, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NomeDisciplina, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NomeDisciplina, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Ano, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Ano, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ano, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Semestre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Semestre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Semestre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CursoId, "Nome do curso", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("CursoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CursoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group" id="BotoesDisc">
+            <div class="col-md-offset-2 col-md-10">
+                <a id="Novo" href="@Url.Action("Index")" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    Voltar
+                </a>
+                <input type="submit" value="Gravar" class="btn btn-success"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @*@Html.ActionLink("Back to List", "Index")*@
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

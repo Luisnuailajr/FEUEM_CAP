@@ -1,0 +1,71 @@
+﻿@model FEUEM_CAP.Models.Curso
+
+@{
+    ViewBag.Title = "RemoverCurso";
+}
+
+<h2>Remover Curso</h2>
+<h4 id="DescForm">
+    Formulário de remoção de curso
+</h4>
+<hr />
+<h3>Tem certeza que deseja remover este curso?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Departamento.NomeDepartamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departamento.NomeDepartamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeCurso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeCurso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duracao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duracao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnoCriacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnoCriacao)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("RemoverCurso", "Curso", FormMethod.Post, new { id = "formCrud" })) {
+        @Html.AntiForgeryToken()
+        <br />
+        <hr />
+        <div class="form-actions no-color">
+            <a id="botaoDeAccao" href="#" class="btn btn-danger" style="left: 30%;">
+                <span class="glyphicon glyphicon-trash"></span>
+                Remover
+            </a>
+            @*<input type="submit" value="RemoverCurso" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")*@
+        </div>
+        <hr/>
+        <a id="DetalhesModal" href="#" class="btn btn-primary")>
+            <span class="glyphicon glyphicon-remove"></span>
+            fechar
+        </a>
+    }
+</div>
+<script src="~/Scripts/Costumizados/FormApagar.js"></script>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>
+

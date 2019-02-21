@@ -1,0 +1,115 @@
+﻿@using FEUEM_CAP.Models
+@model FEUEM_CAP.Models.Curso
+
+@{
+    ViewBag.Title = "AdicionarCurso";
+}
+
+<h2>Adicionar curso</h2>
+
+
+@using (Html.BeginForm("AdicionarCurso", "Curso", FormMethod.Post, new { id = "formCrud" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4 id="DescForm">Formulário de cadastro de curso</h4>
+        <hr />
+        <fieldset id="FormularioAdicao">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NomeCurso, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.NomeCurso, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NomeCurso, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Duracao, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.Duracao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Duracao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AnoCriacao, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.AnoCriacao, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AnoCriacao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DepartamentoId, "Nome do departamento", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.DropDownList("DepartamentoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DepartamentoId, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    @*<a id="NovoDep" href="#" class="btn btn-default" data-action="AdicionarDepartamento">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>*@
+                    <a style="position: relative; top:10%; font-size:x-large;" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse">
+                        <i class="icon-arrow"></i>
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            </div>
+        <hr />
+            <div class="form-group" id="Botoes">
+                <div class="col-md-offset-2 col-md-10">
+                    @*<a href="#" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Voltar
+                    </a>*@
+                    @*<input type="submit" value="Gravar" class="btn btn-success"/>*@
+                    <a id="botaoDeAccao" href="#" class="btn btn-success add" style="position: relative; left: 2%">
+                        <span class="glyphicon glyphicon-floppy-saved"></span>
+                        Gravar
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+}
+<div class="form-horizontal">
+    <div id="collapse" class="panel-collapse collapse">
+        @using (Html.BeginForm("AdicionarDepartamento", "Departamento", FormMethod.Post, new { id = "FormularioAdicaoDep" }))
+        {
+            <hr />
+            <fieldset id="FormularioAdicaoDep" style="position: relative; left: 8%;">
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="NomeDepartamento">Nome do departamento</label>
+                    <div class="col-md-8">
+                        <input class="form-control text-box single-line" data-val="true" data-val-required="Por favor informe o nome do departamento" id="NomeDepartamento" name="NomeDepartamento" type="text" value="" />
+                        <span class="field-validation-valid text-danger" data-valmsg-for="NomeDepartamento" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-4" for="Sigla">Sigla</label>
+                    <div class="col-md-8">
+                        <input class="form-control text-box single-line" data-val="true" data-val-required="por favor informe a sigla" id="Sigla" name="Sigla" type="text" value="" />
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Sigla" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <a id="GravarDep" href="#" class="btn btn-success add" style="position: relative; left: 35%;">
+                    <span class="glyphicon glyphicon-save"></span>
+                    Adicionar
+                </a>
+            </fieldset>
+        }
+    </div>
+</div>
+<hr />
+<a id="DetalhesModal" href="#" class="btn btn-primary" )>
+    <span class="glyphicon glyphicon-remove"></span>
+    fechar
+</a>
+
+
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/Costumizados/EnvioDeFormulario.js"></script>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>
+<script src="~/Scripts/Costumizados/ValidacaoDadosDep.js"></script>

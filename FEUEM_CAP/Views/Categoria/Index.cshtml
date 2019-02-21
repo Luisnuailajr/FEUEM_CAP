@@ -1,0 +1,52 @@
+﻿@model IEnumerable<FEUEM_CAP.Models.Categoria>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Gestão de categorias</h2>
+<p>
+    <a id="Novo" href="@Url.Action("AdicionarCategoria")" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>
+        Adicionar categoria
+    </a>
+</p>
+
+<table id="gridDados">
+    <thead>
+    <tr>
+       
+        <th data-column-id="DescricaoCategoria" data-order="asc">Nome da categoria</th>
+    </tr>
+    </thead>
+</table>
+
+@section scripts{
+    <script src="~/Scripts/jquery.bootgrid.js"></script>
+    <script type="text/javascript">
+        $(document).ready(ConfigurarControles);
+
+        var traducao =
+        {
+            infos: "Mostrando {{ctx.start}} até {{ctx.end}} de {{ctx.total}} registos",
+            loading: "A carregar ...",
+            noResults: "Sem dados a exibir",
+            refresh: "Actalizar dados",
+            search: "Pesquisar"
+        }
+
+        function ConfigurarControles() {
+            $("#gridDados").bootgrid(
+                {
+                    ajax: true,
+                    url: "@Url.Action("ListarCategorias")",
+                    labels: traducao,
+                    searchSettings: {
+                        characters: 2
+                    }
+                });
+        }
+
+
+    </script>
+}

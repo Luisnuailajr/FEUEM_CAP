@@ -1,0 +1,69 @@
+﻿@using FEUEM_CAP.Models
+@model FEUEM_CAP.Models.Curso
+
+
+
+@{
+    ViewBag.Title = "DetalhesCurso";
+    
+}
+
+<h2>Detalhes do curso</h2>
+
+<div id="DescDetalhes">
+    <h4 id="DescForm">Descrição do curso</h4>
+    <hr />
+    
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Departamento.NomeDepartamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departamento.NomeDepartamento)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeCurso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeCurso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duracao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duracao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnoCriacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnoCriacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Departamento.NomeDepartamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Departamento.NomeDepartamento)
+        </dd>
+    </dl>
+</div>
+
+<br/><br/><br/>
+<hr/>
+<p>
+    <a id="DetalhesModal" href="#" class="btn btn-primary")>
+        <span class="glyphicon glyphicon-remove"></span>
+        fechar
+    </a>
+    @*@Html.ActionLink("Editar", "EditarCurso", new { id = Model.CursoId })*@
+    @*@Html.ActionLink("Back to List", "Index")*@
+</p>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>

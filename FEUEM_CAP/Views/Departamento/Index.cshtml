@@ -1,0 +1,54 @@
+﻿@model IEnumerable<FEUEM_CAP.Models.Departamento>
+
+@{
+    ViewBag.Title = "Departamentos";
+}
+
+<h2>Gestão de departamentos</h2>
+
+<p>
+    @*@Html.ActionLink("Novo", "AdicionarDocente")*@
+    <a id="Novo" href="@Url.Action("AdicionarDepartamento")" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus"></span>
+        Adicionar departamento
+    </a>
+</p>
+<table id="gridDados">
+    <thead>
+    <tr>
+        <th data-column-id="NomeDepartamento" data-order="asc">Nome do Departamento</th>
+        <th data-column-id="Sigla">Siga</th>
+    </tr>
+    </thead>
+</table>
+
+@section scripts{
+    <script src="~/Scripts/jquery.bootgrid.js"></script>
+    <script type="text/javascript">
+        $(document).ready(ConfigurarControles);
+
+        var traducao =
+        {
+            infos: "Mostrando {{ctx.start}} até {{ctx.end}} de {{ctx.total}} registos",
+            loading: "A carregar ...",
+            noResults: "Sem dados a exibir",
+            refresh: "Actalizar dados",
+            search: "Pesquisar"
+        }
+
+        function ConfigurarControles() {
+            $("#gridDados").bootgrid(
+                {
+                    ajax: true,
+                    url: "@Url.Action("ListarDepartamentos")",
+                    labels: traducao,
+                    searchSettings: {
+                        characters: 2
+                    }
+                });
+        }
+
+
+    </script>
+
+}
