@@ -18,7 +18,7 @@ namespace FEUEM_CAP.Models
         [Display(Name = "Ano de criação")]
         public int AnoCriacao { get; set; }
         [Display(Name = "Nome do departamento")]
-        public Departamento Departamento { get; set; }
+        public virtual Departamento Departamento { get; set; }
         public int DepartamentoId { get; set; }
         public virtual IEnumerable<Disciplina> Disciplinas { get; set; }
         

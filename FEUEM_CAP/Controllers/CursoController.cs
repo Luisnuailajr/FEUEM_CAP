@@ -129,6 +129,7 @@ namespace FEUEM_CAP.Controllers
 
             return Json(BuscarPeloId.ToList(), JsonRequestBehavior.AllowGet);
         }
+
         // GET: Curso/DetalhesCurso/5
         public ActionResult DetalhesCurso(int? id)
         {
@@ -136,9 +137,11 @@ namespace FEUEM_CAP.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
-            var curso = db.Cursos.Find(id);
-
+            Curso curso = db.Cursos.Find(id);
+            if (curso == null)
+            {
+                return HttpNotFound();
+            }
             return PartialView(curso);
         }
 
