@@ -7,39 +7,39 @@
 <h2>Adição de novo departamento</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AdicionarDepartamento", "Departamento", FormMethod.Post, new {id = "formCrud"}))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4 id="DescForm">Formulário de cadastro de departamento</h4>
-        <hr />
+        <hr/>
         <fieldset id="FormularioAdicao">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.ValidationSummary(true, "", new {@class = "text-danger"})
             <div class="form-group">
-                @Html.LabelFor(model => model.NomeDepartamento, htmlAttributes: new { @class = "control-label col-md-4" })
+                @Html.LabelFor(model => model.NomeDepartamento, htmlAttributes: new {@class = "control-label col-md-4"})
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.NomeDepartamento, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.NomeDepartamento, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.NomeDepartamento, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.NomeDepartamento, "", new {@class = "text-danger"})
                 </div>
             </div>
-        
+
             <div class="form-group">
-                @Html.LabelFor(model => model.Sigla, htmlAttributes: new { @class = "control-label col-md-4" })
+                @Html.LabelFor(model => model.Sigla, htmlAttributes: new {@class = "control-label col-md-4"})
                 <div class="col-md-8">
-                    @Html.EditorFor(model => model.Sigla, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Sigla, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Sigla, new {htmlAttributes = new {@class = "form-control"}})
+                    @Html.ValidationMessageFor(model => model.Sigla, "", new {@class = "text-danger"})
                 </div>
             </div>
         </fieldset>
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10" id="BotoesDep">
-                <a id="Novo" href="@Url.Action("Index")" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-arrow-left"></span>
-                    Voltar
-                </a>
+            <div class="col-md-offset-2 col-md-10">
+                @*<a href="#" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Voltar
+                    </a>*@
                 @*<input type="submit" value="Gravar" class="btn btn-success"/>*@
-                <a id="botaoDeAccao" href="#" class="btn btn-success add">
+                <a id="botaoDeAccao" href="#" class="btn btn-success" style="position: relative; left: 30%">
                     <span class="glyphicon glyphicon-floppy-saved"></span>
                     Gravar
                 </a>
@@ -47,10 +47,15 @@
         </div>
     </div>
 }
+    <hr />
+    <a id="DetalhesModal" href="#" class="btn btn-primary" )>
+        <span class="glyphicon glyphicon-remove"></span>
+        fechar
+    </a>
 
-<div>
-    @*@Html.ActionLink("Back to List", "Index")*@
-  
-</div>
+
+
+
 @Scripts.Render("~/bundles/jqueryval")
-<script src="~/Scripts/Customizados/EnvioDeFormulario.js"></script>
+<script src="~/Scripts/Costumizados/EnvioDeFormulario.js"></script>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>

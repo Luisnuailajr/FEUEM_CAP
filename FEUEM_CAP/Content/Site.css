@@ -30,6 +30,10 @@ textarea {
       
     
 }
+#FormularioAdicaoDisc {
+    position: absolute;
+    top: 10px;
+}
 
 li {
     font-size: 13pt;
@@ -96,7 +100,7 @@ th {
     position: relative;
     left: 5%;
 }
-#FormularioAdicaoDisc, #FormularioAdicaoCategoria {
+#FormularioAdicaoCategoria {
     padding: 30px;
     position: relative;
     left: 20%;

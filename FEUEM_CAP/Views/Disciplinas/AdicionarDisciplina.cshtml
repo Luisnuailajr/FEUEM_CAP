@@ -7,63 +7,70 @@
 <h2>Adição de nova disciplina</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AdicionarDisciplina","Disciplinas",FormMethod.Post, new {id ="formCrud"})) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
         <h4 id="DescForm">Formulário de cadastro de disciplina</h4>
         <hr />
-        <fieldset id="FormularioAdicaoDisc">
+        <fieldset id="FormularioAdicaoDisc" style="position: relative; left: 2%;">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.LabelFor(model => model.NomeDisciplina, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.NomeDisciplina, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
                     @Html.EditorFor(model => model.NomeDisciplina, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.NomeDisciplina, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Ano, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.Ano, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
                     @Html.EditorFor(model => model.Ano, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Ano, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Semestre, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.Semestre, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
                     @Html.EditorFor(model => model.Semestre, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Semestre, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.CursoId, "Nome do curso", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                @Html.LabelFor(model => model.CursoId, "Nome do curso", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
                     @Html.DropDownList("CursoId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.CursoId, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <hr />
         </fieldset>
         <div class="form-group" id="BotoesDisc">
             <div class="col-md-offset-2 col-md-10">
-                <a id="Novo" href="@Url.Action("Index")" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-arrow-left"></span>
-                    Voltar
+                @*<a href="#" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Voltar
+                    </a>*@
+                @*<input type="submit" value="Gravar" class="btn btn-success"/>*@
+                <a id="botaoDeAccao" href="#" class="btn btn-success" style="position: relative; left: -60px;">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    Gravar
                 </a>
-                <input type="submit" value="Gravar" class="btn btn-success"/>
             </div>
         </div>
+        <hr/>
     </div>
 }
+<a id="DetalhesModal" href="#" class="btn btn-primary" )>
+    <span class="glyphicon glyphicon-remove"></span>
+    fechar
+</a>
 
-<div>
-    @*@Html.ActionLink("Back to List", "Index")*@
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/Costumizados/ValidacaoDadosDep.js"></script>
+<script src="~/Scripts/Costumizados/EnvioDeFormulario.js"></script>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>

@@ -1,11 +1,12 @@
 ﻿var btnAcaoDep = $("#GravarDep");
-
 var formularioDep = $("#FormularioAdicaoDep");
 
-btnAcaoDep.on("click", submeter);
 
-function submeter() {
+btnAcaoDep.on("click", submeterDadosDep);
 
+function submeterDadosDep() {
+
+    
     if (formularioDep.valid()) {
 
         var url = formularioDep.prop("action");

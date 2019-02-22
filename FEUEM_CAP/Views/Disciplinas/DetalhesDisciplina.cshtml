@@ -1,14 +1,16 @@
 ﻿@model FEUEM_CAP.Models.Disciplina
 
 @{
-    ViewBag.Title = "DetalhesCurso";
+    ViewBag.Title = "DetalhesDisciplina";
 }
 
-<h2>DetalhesCurso</h2>
+<h2>Detalhes da discplina</h2>
 
-<div>
-    <h4>Disciplina</h4>
-    <hr />
+<div id="DescDetalhes">
+    
+    <h4 id="DescForm"> Descrição da disciplina </h4>
+
+    <hr/>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Curso.NomeCurso)
@@ -45,6 +47,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("EditarDepartamentoarCategoriaarCurso", "EditarDisciplina", new { id = Model.DisciplinaId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a id="DetalhesModal" href="#" class="btn btn-primary")>
+        <span class="glyphicon glyphicon-remove"></span>
+        fechar
+    </a>
+    @*@Html.ActionLink("EditarDepartamentoarCategoriaarCurso", "EditarDisciplina", new { id = Model.DisciplinaId }) |
+    @Html.ActionLink("Back to List", "Index")*@
 </p>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>

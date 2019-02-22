@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using FEUEM_CAP.Context;
 using FEUEM_CAP.Models;
@@ -19,7 +17,7 @@ namespace FEUEM_CAP.Controllers
         // GET: Departamento
         public ActionResult Index()
         {
-            return View(db.Departamentos.ToList());
+            return View();
         }
 
         public JsonResult ListarDepartamentos(string searchPhrase, int current = 1, int rowCount = 5)
@@ -64,7 +62,7 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(departamento);
+            return PartialView(departamento);
         }
 
         // GET: Departamento/AdicionarDocente
@@ -73,9 +71,6 @@ namespace FEUEM_CAP.Controllers
             return PartialView();
         }
 
-        // POST: Departamento/AdicionarDepartamento     
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AdicionarDepartamento([Bind(Include = "DepartamentoId,NomeDepartamento,Sigla")] Departamento departamento)
@@ -108,12 +103,10 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(departamento);
+            return PartialView(departamento);
         }
 
-        // POST: Departamento/EditarCurso/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Departamento/EditarCurso/5        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarDepartamento([Bind(Include = "DepartamentoId,NomeDepartamento,Sigla")] Departamento departamento)
@@ -122,9 +115,16 @@ namespace FEUEM_CAP.Controllers
             {
                 db.Entry(departamento).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return Json(new { resultado = true, mensagem = "Departamento actualizado com sucesso!" });
             }
-            return View(departamento);
+
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+
+                return Json(new { resultado = false, mensagem = erros });
+
+            }
         }
 
         // GET: Departamento/RemoverCurso/5
@@ -139,18 +139,28 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(departamento);
+            return PartialView(departamento);
         }
 
         // POST: Departamento/RemoverCurso/5
-        [HttpPost, ActionName("RemoverCurso")]
+        [HttpPost, ActionName("RemoverDepartamento")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmarRemocao(int id)
         {
-            Departamento departamento = db.Departamentos.Find(id);
-            db.Departamentos.Remove(departamento);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+
+                Departamento departamento = db.Departamentos.Find(id);
+                db.Departamentos.Remove(departamento);
+                db.SaveChanges();
+
+                return Json(new { resultado = true, mensagem = "departamento removido com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { resultado = false, mensagem = ex.Message });
+            }
+
         }
 
         protected override void Dispose(bool disposing)

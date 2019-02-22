@@ -19,8 +19,8 @@ namespace FEUEM_CAP.Controllers
         // GET: Disciplinas
         public ActionResult Index()
         {
-            var disciplinas = db.Disciplinas.Include(d => d.Curso);
-            return View(disciplinas.ToList());
+            
+            return View();
         }
 
         public JsonResult ListarDisciplinas(string searchPhrase, int current = 1, int rowCount = 5)
@@ -29,10 +29,18 @@ namespace FEUEM_CAP.Controllers
             string ordenacao = Request[chave];
             string campo = chave.Replace("sort[", String.Empty).Replace("]", String.Empty);
 
-            var disciplinas = db.Disciplinas.Include(d => d.Curso);
-           
+            var disciplinas = db.Disciplinas.Join(db.Cursos, d => d.CursoId, c => c.CursoId,
+                (d, c) => new
+                {
+                    d.DisciplinaId,
+                    d.NomeDisciplina,
+                    d.Ano,
+                    d.Semestre,
+                    c.NomeCurso
+                    
+                });
 
-              int Total = disciplinas.Count();
+            int Total = disciplinas.Count();
 
             if (!String.IsNullOrWhiteSpace(searchPhrase))
             {
@@ -45,7 +53,7 @@ namespace FEUEM_CAP.Controllers
                 
                 
 
-                disciplinas = disciplinas.Where("NomeDisciplina.Contains(@0) or Ano == @1 or Semestre == @1",
+                disciplinas = disciplinas.Where("NomeDisciplina.Contains(@0) or NomeCurso.Contains(@0) or Ano == @1 or Semestre == @1",
                     searchPhrase, ano, semestre);
             }
 
@@ -74,14 +82,14 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(disciplina);
+            return PartialView(disciplina);
         }
 
         // GET: Disciplinas/AdicionarDocente
         public ActionResult AdicionarDisciplina()
         {
             ViewBag.CursoId = new SelectList(db.Cursos, "CursoId", "NomeCurso");
-            return View();
+            return PartialView();
         }
 
         // POST: Disciplinas/AdicionarDocente
@@ -95,11 +103,16 @@ namespace FEUEM_CAP.Controllers
             {
                 db.Disciplinas.Add(disciplina);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return Json(new { resultado = true, mensagem = "Disciplina gravada com sucesso!" });
+            }
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+
+                return Json(new { resultado = false, mensagem = erros });
+
             }
 
-            ViewBag.CursoId = new SelectList(db.Cursos, "CursoId", "NomeCurso", disciplina.CursoId);
-            return View(disciplina);
         }
 
         // GET: Disciplinas/EditarCurso/5
@@ -115,7 +128,7 @@ namespace FEUEM_CAP.Controllers
                 return HttpNotFound();
             }
             ViewBag.CursoId = new SelectList(db.Cursos, "CursoId", "NomeCurso", disciplina.CursoId);
-            return View(disciplina);
+            return PartialView(disciplina);
         }
 
         // POST: Disciplinas/EditarCurso/5
@@ -129,10 +142,18 @@ namespace FEUEM_CAP.Controllers
             {
                 db.Entry(disciplina).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return Json(new { resultado = true, mensagem = "Disciplina actualizada com sucesso!" });
             }
-            ViewBag.CursoId = new SelectList(db.Cursos, "CursoId", "NomeCurso", disciplina.CursoId);
-            return View(disciplina);
+            else
+
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+
+                return Json(new { resultado = false, mensagem = erros });
+
+            }
+
         }
 
         // GET: Disciplinas/RemoverCurso/5
@@ -147,7 +168,7 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(disciplina);
+            return PartialView(disciplina);
         }
 
         // POST: Disciplinas/RemoverCurso/5
@@ -155,10 +176,20 @@ namespace FEUEM_CAP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmarRemocao(int id)
         {
-            Disciplina disciplina = db.Disciplinas.Find(id);
-            db.Disciplinas.Remove(disciplina);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            try
+            {
+                Disciplina disciplina = db.Disciplinas.Find(id);
+                db.Disciplinas.Remove(disciplina);
+                db.SaveChanges();
+                return Json(new { resultado = true, mensagem = "Disciplina removida com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { resultado = false, mensagem = ex.Message });
+            }
+
+
         }
 
         protected override void Dispose(bool disposing)

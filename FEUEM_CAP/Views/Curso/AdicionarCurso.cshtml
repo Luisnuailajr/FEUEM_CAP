@@ -76,25 +76,26 @@
 }
 <div class="form-horizontal">
     <div id="collapse" class="panel-collapse collapse">
-        @using (Html.BeginForm("AdicionarDepartamento", "Departamento", FormMethod.Post, new { id = "FormularioAdicaoDep" }))
+        
+        @using (Html.BeginForm("AdicionarDepartamento", "Departamento", FormMethod.Post, new {id = "FormularioAdicaoDep"}))
         {
-            <hr />
+            <hr/>
             <fieldset id="FormularioAdicaoDep" style="position: relative; left: 8%;">
                 <div class="form-group">
                     <label class="control-label col-md-4" for="NomeDepartamento">Nome do departamento</label>
                     <div class="col-md-8">
-                        <input class="form-control text-box single-line" data-val="true" data-val-required="Por favor informe o nome do departamento" id="NomeDepartamento" name="NomeDepartamento" type="text" value="" />
+                        <input class="form-control text-box single-line" data-val="true" data-val-required="Por favor informe o nome do departamento" id="NomeDepartamento" name="NomeDepartamento" type="text" value=""/>
                         <span class="field-validation-valid text-danger" data-valmsg-for="NomeDepartamento" data-valmsg-replace="true"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-4" for="Sigla">Sigla</label>
                     <div class="col-md-8">
-                        <input class="form-control text-box single-line" data-val="true" data-val-required="por favor informe a sigla" id="Sigla" name="Sigla" type="text" value="" />
+                        <input class="form-control text-box single-line" data-val="true" data-val-required="por favor informe a sigla" id="Sigla" name="Sigla" type="text" value=""/>
                         <span class="field-validation-valid text-danger" data-valmsg-for="Sigla" data-valmsg-replace="true"></span>
                     </div>
                 </div>
-                <a id="GravarDep" href="#" class="btn btn-success add" style="position: relative; left: 35%;">
+                <a id="GravarDep" href="#" class="btn btn-success" style="position: relative; left: 35%;">
                     <span class="glyphicon glyphicon-save"></span>
                     Adicionar
                 </a>
@@ -110,6 +111,6 @@
 
 
 @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/Costumizados/ValidacaoDadosDep.js"></script>
 <script src="~/Scripts/Costumizados/EnvioDeFormulario.js"></script>
 <script src="~/Scripts/Costumizados/FecharModal.js"></script>
-<script src="~/Scripts/Costumizados/ValidacaoDadosDep.js"></script>

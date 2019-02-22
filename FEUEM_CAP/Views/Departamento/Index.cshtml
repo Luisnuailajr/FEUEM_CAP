@@ -7,10 +7,9 @@
 <h2>Gestão de departamentos</h2>
 
 <p>
-    @*@Html.ActionLink("Novo", "AdicionarDocente")*@
-    <a id="Novo" href="@Url.Action("AdicionarDepartamento")" class="btn btn-success">
+    <a id="Novo" href="#" class="btn btn-success" data-action="AdicionarDepartamento">
         <span class="glyphicon glyphicon-plus"></span>
-        Adicionar departamento
+        Adicionar depertamento
     </a>
 </p>
 <table id="gridDados">
@@ -18,13 +17,29 @@
     <tr>
         <th data-column-id="NomeDepartamento" data-order="asc">Nome do Departamento</th>
         <th data-column-id="Sigla">Siga</th>
+        <th data-formatter="accoes"></th>
     </tr>
     </thead>
 </table>
 
+<div class="modal fade" id="minhaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="conteudoModal"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts{
+
     <script src="~/Scripts/jquery.bootgrid.js"></script>
+
     <script type="text/javascript">
+        
+        var controller = "Departamento";
+
         $(document).ready(ConfigurarControles);
 
         var traducao =
@@ -37,18 +52,64 @@
         }
 
         function ConfigurarControles() {
-            $("#gridDados").bootgrid(
+            var grid = $("#gridDados").bootgrid(
                 {
                     ajax: true,
                     url: "@Url.Action("ListarDepartamentos")",
                     labels: traducao,
                     searchSettings: {
-                        characters: 2
+                        characters: 1
+                    },
+                    formatters: {
+                        "accoes": function (column, row)
+                        {
+                            return "<a href='#' class='btn btn-info' ' data-acao='DetalhesDepartamento' data-row-id='" + row.DepartamentoId + "'>" +
+                                "<span class ='glyphicon glyphicon-list'></span></a> "+
+                                "<a href='#' class='btn btn-warning' data-acao='EditarDepartamento' data-row-id='" + row.DepartamentoId + "'>" +
+                                "<span class = 'glyphicon glyphicon-edit'></span></a> " +
+                                "<a href='#' class='btn btn-danger' data-acao='RemoverDepartamento' data-row-id='" + row.DepartamentoId + "'>" +
+                                "<span class = 'glyphicon glyphicon-trash'></span></a>";
+                        }
                     }
                 });
+
+            grid.on("loaded.rs.jquery.bootgrid", function() {
+
+                grid.find("a.btn").each(function (index, elemento) {
+
+                    var botaoAcao = $(elemento);
+                    var acao = botaoAcao.data("acao");
+                    var idEntidade = botaoAcao.data("row-id");
+
+                    botaoAcao.on("click",function () {
+                        abrirModal(acao, idEntidade);
+                    });
+                });
+            });
+
+            $("a.btn").click(function () {
+                var acao = $(this).data("action");
+                abrirModal(acao);
+            });
         }
 
+        function abrirModal(acao, parametro) {
 
+            var url = "/{ctrl}/{acao}/{parametro}";
+            url = url.replace("{ctrl}", controller);
+            url = url.replace("{acao}", acao);
+
+            if (parametro != null) {
+                url = url.replace("{parametro}", parametro);
+            } else {
+
+                url = url.replace("{parametro}", "");
+            }
+            $("#conteudoModal").load(url,
+                function() {
+                    $("#minhaModal").modal('show');
+                });
+        }
     </script>
 
 }

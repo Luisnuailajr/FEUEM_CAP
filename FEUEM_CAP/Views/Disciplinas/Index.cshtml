@@ -6,27 +6,41 @@
 
 <h2>Gestão de disciplinas</h2>
 <p>
-    @*@Html.ActionLink("Novo", "AdicionarDocente")*@
-    <a id="Novo" href="@Url.Action("AdicionarDisciplina")" class="btn btn-success">
+    <a id="Novo" href="#" class="btn btn-success" data-action="AdicionarDisciplina">
         <span class="glyphicon glyphicon-plus"></span>
-        Adicionar disciplina
+        Adicionar discipina
     </a>
 </p>
+
 <table id="gridDados">
     <thead>
-        <tr>
+    <tr>
 
-            <th data-column-id="NomeDisciplina" data-order="asc">Nome da disciplina</th>
-            <th data-column-id="Ano">Ano</th>
-            <th data-column-id="Semestre">Semestre</th>
-            <th data-column-id="CursoId">Nome do Curso</th>
-        </tr>
+        <th data-column-id="NomeDisciplina" data-order="asc">Nome da disciplina</th>
+        <th data-column-id="Ano">Ano</th>
+        <th data-column-id="Semestre">Semestre</th>
+        <th data-column-id="NomeCurso">Nome do Curso</th>
+        <th data-formatter="accoes"></th>
+    </tr>
     </thead>
 </table>
+
+<div class="modal fade" id="minhaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="conteudoModal"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script src="~/Scripts/jquery.bootgrid.js"></script>
     <script type="text/javascript">
+        
+        var controller = "Disciplinas";
+
         $(document).ready(ConfigurarControles);
 
         var traducao =
@@ -39,18 +53,71 @@
         }
 
         function ConfigurarControles() {
-            $("#gridDados").bootgrid(
+            var grid = $("#gridDados").bootgrid(
                 {
                     ajax: true,
                     url: "@Url.Action("ListarDisciplinas")",
                     labels: traducao,
                     searchSettings: {
                         characters: 2
+                    },
+                    formatters: {
+                        "accoes": function (column, row)
+                        {
+                            return "<a href='#' class='btn btn-info' ' data-acao='DetalhesDisciplina' data-row-id='" + row.DisciplinaId + "'>" +
+                                "<span class ='glyphicon glyphicon-list'></span></a> "+
+                                "<a href='#' class='btn btn-warning' data-acao='EditarDisciplina' data-row-id='" + row.DisciplinaId + "'>" +
+                                "<span class = 'glyphicon glyphicon-edit'></span></a> " +
+                                "<a href='#' class='btn btn-danger' data-acao='RemoverDisciplina' data-row-id='" + row.DisciplinaId + "'>" +
+                                "<span class = 'glyphicon glyphicon-trash'></span></a>";
+                        }
                     }
                 });
+
+            grid.on("loaded.rs.jquery.bootgrid", function() {
+
+                grid.find("a.btn").each(function (index, elemento) {
+
+                    var botaoAcao = $(elemento);
+                    var acao = botaoAcao.data("acao");
+                    var idEntidade = botaoAcao.data("row-id");
+
+                    botaoAcao.on("click",
+                        function () {
+
+                            abrirModal(acao, idEntidade);
+
+                        });
+
+                });
+
+            });
+
+            $("a.btn").click(function () {
+                var acao = $(this).data("action");
+                abrirModal(acao);
+            });
         }
 
+        function abrirModal(acao, parametro) {
+            var url = "/{ctrl}/{acao}/{parametro}";
+            url = url.replace("{ctrl}", controller);
+            url = url.replace("{acao}", acao);
 
+            if (parametro != null) {
+
+                url = url.replace("{parametro}", parametro);
+
+            } else {
+
+                url = url.replace("{parametro}", "");
+            }
+
+            $("#conteudoModal").load(url,
+                function() {
+                    $("#minhaModal").modal('show');
+                });
+        }
     </script>
 
 }

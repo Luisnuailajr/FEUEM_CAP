@@ -21,7 +21,7 @@
         <th data-column-id="Duracao">Duração</th>
         <th data-column-id="AnoCriacao">Ano de criação</th>
         <th data-column-id="NomeDepartamento">Nome do Departamento</th>
-        <th id="separador"></th>
+        
         <th data-formatter="accoes"></th>
     </tr>
     </thead>
@@ -68,11 +68,11 @@
                         "accoes": function (column, row)
                         {
                             return "<a href='#' class='btn btn-info' ' data-acao='DetalhesCurso' data-row-id='" + row.CursoId + "'>" +
-                                "<span class ='glyphicon glyphicon-list'></span></a> "+
-                                "<a href='#' class='btn btn-warning' data-acao='EditarCurso' data-row-id='" + row.CursoId + "'>" +
-                                "<span class = 'glyphicon glyphicon-edit'></span></a> " +
-                                "<a href='#' class='btn btn-danger' data-acao='RemoverCurso' data-row-id='" + row.CursoId + "'>" +
-                                "<span class = 'glyphicon glyphicon-trash'></span></a>";
+                                   "<span class ='glyphicon glyphicon-list'></span></a> "+
+                                   "<a href='#' class='btn btn-warning' data-acao='EditarCurso' data-row-id='" + row.CursoId + "'>" +
+                                   "<span class = 'glyphicon glyphicon-edit'></span></a> " +
+                                   "<a href='#' class='btn btn-danger' data-acao='RemoverCurso' data-row-id='" + row.CursoId + "'>" +
+                                   "<span class = 'glyphicon glyphicon-trash'></span></a>";
                         }
                     }
                 });
@@ -103,7 +103,6 @@
         }
 
         function abrirModal(acao, parametro) {
-
             var url = "/{ctrl}/{acao}/{parametro}";
             url = url.replace("{ctrl}", controller);
             url = url.replace("{acao}", acao);

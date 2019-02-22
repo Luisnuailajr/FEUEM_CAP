@@ -1,66 +1,73 @@
 ﻿@model FEUEM_CAP.Models.Disciplina
 
 @{
-    ViewBag.Title = "EditarNAcdemicoarDocentearDisciplinaarDepartamentoarCategoriaarCurso";
+    ViewBag.Title = "EditarDisciplina";
 }
 
-<h2>EditarNAcdemicoarDocentearDisciplinaarDepartamentoarCategoriaarCurso</h2>
+<h2>Actualizar disciplina</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditarDisciplina","Disciplinas", FormMethod.Post, new { id ="formCrud"}))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Disciplina</h4>
+        <h4 id="DescForm">
+            Formulário de actalização de disciplina
+        </h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.DisciplinaId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NomeDisciplina, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.NomeDisciplina, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.NomeDisciplina, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.NomeDisciplina, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Ano, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Ano, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Ano, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Ano, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Semestre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Semestre, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.Semestre, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Semestre, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CursoId, "CursoId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.CursoId, "Nome do curso", htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.DropDownList("CursoId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CursoId, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <hr/>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                @*<input type="button" value="Actualizar" class="btn btn-success" style="position: relative; left: 21%;" />*@
+                <a id="botaoDeAccao" href="#" class="btn btn-success")>
+                    <span class="glyphicon glyphicon-refresh"></span>
+                    Actualizar
+                </a>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<hr />
+<br />
+<a id="DetalhesModal" href="#" class="btn btn-primary" )>
+    <span class="glyphicon glyphicon-remove"></span>
+    fechar
+</a>
+<script src="~/Scripts/Costumizados/EnvioDeFormulario.js"></script>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
