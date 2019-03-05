@@ -7,7 +7,7 @@
 <h2>Adição de novo docente</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AdicionarDocente","Docente",FormMethod.Post,new { id= "formCrudDocente" }))
 {
     @Html.AntiForgeryToken()
     
@@ -67,36 +67,56 @@
             <fieldset id="DadosFormacao">
                 <legend>Dados de formação</legend>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CategoriaId, "Categoria", htmlAttributes: new {@class = "control-label col-md-2"})
-                    <div class="col-md-4">
+                    
+                        @Html.LabelFor(model => model.CategoriaId, "Categoria", htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-3">
                         @Html.DropDownList("CategoriaId", null, htmlAttributes: new {@class = "form-control"})
                         @Html.ValidationMessageFor(model => model.CategoriaId, "", new {@class = "text-danger"})
                     </div>
-                    @Html.LabelFor(model => model.NivelAcademicoId, "Nível académico", htmlAttributes: new {@class = "control-label col-md-2"})
-                    <div class="col-md-4">
-                        @Html.DropDownList("NivelAcademicoId", null, htmlAttributes: new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.NivelAcademicoId, "", new {@class = "text-danger"})
+                    <div class="col-md-1">
+                        <a id="AddNovo" data-action="AdicionarCategoria" class="btn btn-success categoria" style="position: relative; left: -20px;">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
                     </div>
+                    <div>
+                        @Html.LabelFor(model => model.NivelAcademicoId, "Nível académico", htmlAttributes: new {@class = "control-label col-md-2"})
+                        <div class="col-md-3">
+                            @Html.DropDownList("NivelAcademicoId", null, htmlAttributes: new {@class = "form-control"})
+                            @Html.ValidationMessageFor(model => model.NivelAcademicoId, "", new {@class = "text-danger"})
+                            <a id="AddNovo" data-action="AdicionarNAcademico" class="btn btn-success NAcademico">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <br/>
                 </div>
             </fieldset>
             <hr/>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10 ">
-                    <input type="submit" value="Gravar" id="Gravar" class="btn btn-success"/>
-                </div>
+                <a id="Novo" href="@Url.Action("Index")" class="btn btn-primary" style="position: relative; left: 10%">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    Voltar
+                </a>
+                <a id="gravarDocente" href="#" class="btn btn-success add" style="position: relative; left: 70%">
+                    <span class="glyphicon glyphicon-floppy-saved"></span>
+                    Gravar
+                </a>
             </div>
             
         </div>
    </div>
 }
-<div>
-    @*@Html.ActionLink("Back to List", "Index")*@
-    <a id="Novo" href="@Url.Action("Index")" class="btn btn-primary">
-        <span class="glyphicon glyphicon-arrow-left"></span>
-        Voltar
-    </a>
+<div class="modal fade" id="minhaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="conteudoModal"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script src="~/Scripts/jquery-1.11.1.js"></script>
+<script src="~/Scripts/Costumizados/GravarDocente.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
+

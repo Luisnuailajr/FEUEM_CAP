@@ -1,28 +1,23 @@
-﻿@model IEnumerable<FEUEM_CAP.Models.Docente>
+﻿@model IEnumerable<FEUEM_CAP.Models.Categoria>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Gestão de docentes</h2>
-
+<h2>Gestão de categorias</h2>
 <p>
-    <a id="Novo" href="@Url.Action("AdicionarDocente")" class="btn btn-success">
+    <a id="Novo" href="#" class="btn btn-success" data-action="AdicionarCategoria">
         <span class="glyphicon glyphicon-plus"></span>
-        Adicionar docente
+        Adicionar categoria
     </a>
 </p>
 
 <table id="gridDados">
     <thead>
         <tr>
-            <th data-column-id="ApelidoDocente" data-order="asc">Apelido</th>
-            <th data-column-id="NomeDocente">Nome</th>
-            <th data-column-id="ContactoTelefone">Nº de Telefone</th>
-            <th data-column-id="ContactoEmail">Email</th>
-            <th data-column-id="Nuit">NUIT</th>
-            <th data-column-id="Nib">NIB</th>
-            <th data-column-id="NumeroConta">Nº de conta</th>
+            <th data-column-id="DescricaoCategoria" data-order="asc">Nome da categoria</th>
+            <th></th>
+            <th></th>
             <th data-formatter="accoes"></th>
         </tr>
     </thead>
@@ -41,9 +36,10 @@
 @section scripts{
     <script src="~/Scripts/jquery.bootgrid.js"></script>
     <script type="text/javascript">
-        var controller = "Docente";
-        $(document).ready(ConfigurarControles);
 
+        controller = "Categoria";
+
+        $(document).ready(ConfigurarControles);
         var traducao =
         {
             infos: "Mostrando {{ctx.start}} até {{ctx.end}} de {{ctx.total}} registos",
@@ -52,26 +48,24 @@
             refresh: "Actalizar dados",
             search: "Pesquisar"
         }
-
         function ConfigurarControles() {
-            var grid =  $("#gridDados").bootgrid(
+            var grid = $("#gridDados").bootgrid(
                 {
                     ajax: true,
-                    url: "@Url.Action("ListarDocentes")",
+                    url: "@Url.Action("ListarCategorias")",
                     labels: traducao,
                     searchSettings: {
                         characters: 2
                     },
-
                     formatters: {
                         "accoes": function (column, row)
                         {
-                            return "<a href='#' class='btn btn-info' ' data-acao='DetalhesDocente' data-row-id='" + row.DocenteId + "'>" +
-                                    "<span class ='glyphicon glyphicon-list'></span></a> "+
-                                    "<a href='#' class='btn btn-warning' data-acao='EditarDocente' data-row-id='" + row.DocenteId + "'>" +
-                                    "<span class = 'glyphicon glyphicon-edit'></span></a> " +
-                                    "<a href='#' class='btn btn-danger' data-acao='RemoverDocente' data-row-id='" + row.DocenteId + "'>" +
-                                    "<span class = 'glyphicon glyphicon-trash'></span></a>";
+                            return "<a href='#' class='btn btn-info' ' data-acao='DetalhesCategoria' data-row-id='" + row.CategoriaId + "'>" +
+                                "<span class ='glyphicon glyphicon-list'></span></a> "+
+                                "<a href='#' class='btn btn-warning' data-acao='EditarCategoria' data-row-id='" + row.CategoriaId + "'>" +
+                                "<span class = 'glyphicon glyphicon-edit'></span></a> " +
+                                "<a href='#' class='btn btn-danger' data-acao='RemoverCategoria' data-row-id='" + row.CategoriaId + "'>" +
+                                "<span class = 'glyphicon glyphicon-trash'></span></a>";
                         }
                     }
                 });
@@ -95,10 +89,10 @@
 
             });
 
-            //$("a.btn").click(function () {
-            //    var acao = $(this).data("action");
-            //    abrirModal(acao);
-            //});
+            $("a.btn").click(function () {
+                var acao = $(this).data("action");
+                abrirModal(acao);
+            });
         }
 
         function abrirModal(acao, parametro) {
@@ -120,6 +114,6 @@
                     $("#minhaModal").modal('show');
                 });
         }
-    </script>
+</script>
 
 }

@@ -69,7 +69,7 @@ namespace FEUEM_CAP.Controllers
 
         }
 
-        // GET: Docente/DetalhesCurso/5
+        
         public ActionResult DetalhesDocente(int? id)
         {
             if (id == null)
@@ -81,10 +81,10 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(docente);
+            return PartialView(docente);
         }
 
-        // GET: Docente/AdicionarDocente
+        
         public ActionResult AdicionarDocente()
         {
             ViewBag.CategoriaId = new SelectList(db.Categorias, "CategoriaId", "DescricaoCategoria");
@@ -92,9 +92,7 @@ namespace FEUEM_CAP.Controllers
             return View();
         }
 
-        // POST: Docente/AdicionarDocente
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AdicionarDocente([Bind(Include = "DocenteId,NomeDocente,ApelidoDocente,ContactoTelefone,ContactoEmail,Nuit,Nib,NumeroConta,CategoriaId,NivelAcademicoId")] Docente docente)
@@ -103,15 +101,14 @@ namespace FEUEM_CAP.Controllers
             {
                 db.Docentes.Add(docente);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new {resultado = true, mensagem="Docente gravado com sucesso"});
             }
-
-            ViewBag.CategoriaId = new SelectList(db.Categorias, "CategoriaId", "DescricaoCategoria", docente.CategoriaId);
-            ViewBag.NivelAcademicoId = new SelectList(db.NivelAcademicoes, "NivelAcademicoId", "DescricaoNivelAcademico", docente.NivelAcademicoId);
-            return View(docente);
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+                return Json(new { resultado = false, mensagem = erros });
+            }
         }
 
-        // GET: Docente/EditarCurso/5
         public ActionResult EditarDocente(int? id)
         {
             if (id == null)
@@ -125,12 +122,9 @@ namespace FEUEM_CAP.Controllers
             }
             ViewBag.CategoriaId = new SelectList(db.Categorias, "CategoriaId", "DescricaoCategoria", docente.CategoriaId);
             ViewBag.NivelAcademicoId = new SelectList(db.NivelAcademicoes, "NivelAcademicoId", "DescricaoNivelAcademico", docente.NivelAcademicoId);
-            return View(docente);
+            return PartialView(docente);
         }
-
-        // POST: Docente/EditarCurso/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarDocente([Bind(Include = "DocenteId,NomeDocente,ApelidoDocente,ContactoTelefone,ContactoEmail,Nuit,Nib,NumeroConta,CategoriaId,NivelAcademicoId")] Docente docente)
@@ -139,14 +133,15 @@ namespace FEUEM_CAP.Controllers
             {
                 db.Entry(docente).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { resultado = true, mensagem = "Docente actualizado com sucesso" });
             }
-            ViewBag.CategoriaId = new SelectList(db.Categorias, "CategoriaId", "DescricaoCategoria", docente.CategoriaId);
-            ViewBag.NivelAcademicoId = new SelectList(db.NivelAcademicoes, "NivelAcademicoId", "DescricaoNivelAcademico", docente.NivelAcademicoId);
-            return View(docente);
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+                return Json(new { resultado = false, mensagem = erros });
+            }
         }
 
-        // GET: Docente/RemoverCurso/5
+        
         public ActionResult RemoverDocente(int? id)
         {
             if (id == null)
@@ -158,7 +153,7 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(docente);
+            return PartialView(docente);
         }
 
         // POST: Docente/RemoverCurso/5
@@ -166,10 +161,19 @@ namespace FEUEM_CAP.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmarRemocao(int id)
         {
+            try
+            {
+
+            
             Docente docente = db.Docentes.Find(id);
             db.Docentes.Remove(docente);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return Json(new { resultado = true, mensagem = "Docente removido com sucesso" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { resultado = true, mensagem = ex });
+            }
         }
 
         protected override void Dispose(bool disposing)

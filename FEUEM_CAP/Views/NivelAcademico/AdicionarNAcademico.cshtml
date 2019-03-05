@@ -7,34 +7,37 @@
 <h2>Adição de novo nivel académico</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AdicionarNAcademico", "NivelAcademico", FormMethod.Post, new { id = "formCrud" })) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>NivelAcademico</h4>
+        <h4 id="DescForm">Formulário de cadastro de nível académico</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.DescricaoNivelAcademico, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.DescricaoNivelAcademico, htmlAttributes: new { @class = "control-label col-md-4" })
+            <div class="col-md-8">
                 @Html.EditorFor(model => model.DescricaoNivelAcademico, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DescricaoNivelAcademico, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="AdicionarDocente" class="btn btn-default" />
-            </div>
+            <a id="botaoDeAccao" href="#" class="btn btn-success add" style="position: relative; left: 37%">
+                <span class="glyphicon glyphicon-floppy-saved"></span>
+                Gravar
+            </a>
         </div>
     </div>
 }
+<hr />
+<a id="DetalhesModal" href="#" class="btn btn-primary" )>
+    <span class="glyphicon glyphicon-remove"></span>
+    fechar
+</a>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/Costumizados/EnvioDeFormulario.js"></script>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>

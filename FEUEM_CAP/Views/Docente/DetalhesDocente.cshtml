@@ -1,30 +1,17 @@
 ﻿@model FEUEM_CAP.Models.Docente
 
 @{
-    ViewBag.Title = "DetalhesCurso";
+    ViewBag.Title = "DetalhesDocente";
 }
 
-<h2>DetalhesCurso</h2>
+<h2>Detalhees do docente @Html.DisplayFor(model => model.NomeDocente)</h2>
 
-<div>
-    <h4>Docente</h4>
+<div id="DescDetalhes">
+    <h4 id="DescForm">Descrição do curso</h4>
     <hr />
+
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Categoria.DescricaoCategoria)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Categoria.DescricaoCategoria)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NivelAcademico.DescricaoNivelAcademico)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NivelAcademico.DescricaoNivelAcademico)
-        </dd>
+        
 
         <dt>
             @Html.DisplayNameFor(model => model.NomeDocente)
@@ -82,9 +69,30 @@
             @Html.DisplayFor(model => model.NumeroConta)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.DescricaoCategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.DescricaoCategoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NivelAcademico.DescricaoNivelAcademico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NivelAcademico.DescricaoNivelAcademico)
+        </dd>
     </dl>
 </div>
+
+<br /><br /><br />
+<hr />
 <p>
-    @Html.ActionLink("EditarDisciplinaarDepartamentoarCategoriaarCurso", "EditarDocente", new { id = Model.DocenteId }) |
-    @Html.ActionLink("Back to List", "Index")
+    <a id="DetalhesModal" href="#" class="btn btn-primary" )>
+        <span class="glyphicon glyphicon-remove"></span>
+        fechar
+    </a>
 </p>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>

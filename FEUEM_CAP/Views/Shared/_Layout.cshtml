@@ -9,16 +9,6 @@
     <link href="~/Content/jquery.bootgrid.css" rel="stylesheet" />
 </head>
 <body>
-<div class="toastr">
-    <input type="hidden" id="success"
-           value="@TempData["success"]" />
-    <input type="hidden" id="info"   
-           value="@TempData["info"]" />
-    <input type="hidden" id="warning"
-           value="@TempData["warning"]" />
-    <input type="hidden" id="error"
-           value="@TempData["error"]" />
-</div>
 <div id="NavBar" class="navbar navbar-inverse navbar-fixed-top" style="cursor: pointer;">
     <div class="container">
         <div class="navbar-header">
@@ -35,7 +25,7 @@
                 @*<li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">Departamento<b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">Departamento <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Cursos", "Index", "Curso")</li>
                         <li class="divider"></li>
@@ -45,7 +35,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">Docente<b class="caret"></b></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown">Docente <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Categoria", "Index", "Categoria")</li>
                         <li class="divider"></li>

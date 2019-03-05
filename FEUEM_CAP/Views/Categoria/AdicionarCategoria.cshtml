@@ -7,12 +7,12 @@
 <h2>Adição de nova categoria</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AdicionarCategoria","Categoria",FormMethod.Post, new { id="formCrud"})) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4 id="DescForm">Categoria</h4>
+        <h4 id="DescForm">Formulário de cadastro de categoria</h4>
         <hr />
         <fieldset id="FormularioAdicaoCategoria">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -23,25 +23,24 @@
                     @Html.ValidationMessageFor(model => model.DescricaoCategoria, "", new { @class = "text-danger" })
                 </div>
             </div>
-
+        
             <div class="form-group" id="BotoesCategoria">
                 <div class="col-md-offset-2 col-md-10">
-                    <a id="Novo" href="@Url.Action("Index")" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                        Voltar
+                    <a id="botaoDeAccao" href="#" class="btn btn-success add" style="position: relative; left: 2px;">
+                        <span class="glyphicon glyphicon-floppy-saved"></span>
+                        Gravar
                     </a>
-                    <input type="submit" value="Gravar" class="btn btn-success glyphicon-arrow-left"/>
                 </div>
             </div>
         </fieldset>
     </div>
     
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<hr />
+<a id="DetalhesModal" href="#" class="btn btn-primary" )>
+    <span class="glyphicon glyphicon-remove"></span>
+    fechar
+</a>
+<script src="~/Scripts/Costumizados/EnvioDeFormulario.js"></script>
+<script src="~/Scripts/Costumizados/FecharModal.js"></script>
+@Scripts.Render("~/bundles/jqueryval")

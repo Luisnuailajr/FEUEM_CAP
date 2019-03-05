@@ -30,15 +30,15 @@ namespace FEUEM_CAP.Models
         public string ContactoEmail { get; set; }
         [Required(ErrorMessage = "Por favor informe o NUIT")]
         [Display(Name = "NUIT")]
-        public int Nuit { get; set; }
+        public double Nuit { get; set; }
         [Required(ErrorMessage = "Por favor informe o NIB")]
         [Display(Name = "NIB")]
-        public int Nib { get; set; }
+        public double Nib { get; set; }
         [Required(ErrorMessage = "Informe o numero de conta")]
         [Display(Name = "Número de conta")]
-        public int  NumeroConta { get; set; }
-        public Categoria Categoria { get; set; }
-        public NivelAcademico NivelAcademico { get; set; }
+        public double NumeroConta { get; set; }
+        public virtual Categoria Categoria { get; set; }
+        public virtual NivelAcademico NivelAcademico { get; set; }
         public int CategoriaId { get; set; }
         public int NivelAcademicoId { get; set; }
 

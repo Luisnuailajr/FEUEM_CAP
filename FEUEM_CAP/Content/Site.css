@@ -12,8 +12,23 @@
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
+.dl-horizontal {
+    position: relative;
+    left: 15%;
+    text-align: justify;
+}
+
 .dl-horizontal dt {
     white-space: normal;
+    font-weight: bolder;
+    font-size: 12pt;
+
+}
+
+.dl-horizontal dd {
+    font-size: large;
+    font-weight: lighter;
+    font-style: normal;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -24,15 +39,42 @@ textarea {
 }
 
 #NavBar {
-    background-color:gray ;
-    border-bottom-color: gray;
-    
-      
-    
+    background-color: #2f4f4f;
+    border-bottom-color:#2f4f4f;
+}
+
+
+.dropdown-menu {
+    position: absolute;
+    top: 65px;
+    background: darkgrey;
+}
+
+.dropdown-menu li :hover {
+    background: #2f4f4f;
 }
 #FormularioAdicaoDisc {
     position: absolute;
     top: 10px;
+}
+
+#DescCollapse {
+    position: relative;
+    padding-bottom: 10px;
+    left: 35%;
+    display: block;
+    font-size: x-large;
+}
+
+#DescCollapse:focus {
+
+    position: relative;
+    padding-bottom: 10px;
+    left: 35%;
+    display: block;
+    font-size:large;
+    font-weight: lighter;
+    color: rgb(91, 87, 87); 
 }
 
 li {
@@ -103,7 +145,7 @@ th {
 #FormularioAdicaoCategoria {
     padding: 30px;
     position: relative;
-    left: 20%;
+    left: 10%;
 }
 #Botoes {
     position: relative;
@@ -173,4 +215,12 @@ table th {
 }
 #Gravar {
     text-align: left;
+}
+
+#AddNovo {
+    position: absolute;
+    top: -2px;
+    left: 97%;
+    font-size: large;
+    cursor: pointer;
 }

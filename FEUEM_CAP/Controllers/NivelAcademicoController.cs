@@ -51,7 +51,6 @@ namespace FEUEM_CAP.Controllers
 
         }
 
-        // GET: NivelAcademico/DetalhesCurso/5
         public ActionResult DetalhesNivelAcademico(int? id)
         {
             if (id == null)
@@ -63,18 +62,15 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(nivelAcademico);
+            return PartialView(nivelAcademico);
         }
 
-        // GET: NivelAcademico/AdicionarDocente
         public ActionResult AdicionarNAcademico()
         {
-            return View();
+            return PartialView();
         }
 
-        // POST: NivelAcademico/AdicionarDocente
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AdicionarNAcademico([Bind(Include = "NivelAcademicoId,DescricaoNivelAcademico")] NivelAcademico nivelAcademico)
@@ -83,13 +79,14 @@ namespace FEUEM_CAP.Controllers
             {
                 db.NivelAcademicoes.Add(nivelAcademico);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new {resultado = true, mensagem = "Nível académico gravado com sucesso"});
             }
-
-            return View(nivelAcademico);
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+                return Json(new { resultado = false, mensagem = erros });
+            }
         }
 
-        // GET: NivelAcademico/EditarCurso/5
         public ActionResult EditarNAcdemico(int? id)
         {
             if (id == null)
@@ -101,12 +98,9 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(nivelAcademico);
+            return PartialView(nivelAcademico);
         }
 
-        // POST: NivelAcademico/EditarCurso/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarNAcdemico([Bind(Include = "NivelAcademicoId,DescricaoNivelAcademico")] NivelAcademico nivelAcademico)
@@ -115,12 +109,14 @@ namespace FEUEM_CAP.Controllers
             {
                 db.Entry(nivelAcademico).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { resultado = true, mensagem = "Nível académico actualizado com sucesso" });
             }
-            return View(nivelAcademico);
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+                return Json(new { resultado = false, mensagem = erros });
+            }
         }
 
-        // GET: NivelAcademico/RemoverCurso/5
         public ActionResult RemoverNAcademico(int? id)
         {
             if (id == null)
@@ -132,18 +128,24 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(nivelAcademico);
+            return PartialView(nivelAcademico);
         }
 
-        // POST: NivelAcademico/RemoverCurso/5
-        [HttpPost, ActionName("RemoverCurso")]
+        [HttpPost, ActionName("RemoverNAcademico")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmarRemocao(int id)
         {
-            NivelAcademico nivelAcademico = db.NivelAcademicoes.Find(id);
-            db.NivelAcademicoes.Remove(nivelAcademico);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                NivelAcademico nivelAcademico = db.NivelAcademicoes.Find(id);
+                db.NivelAcademicoes.Remove(nivelAcademico);
+                db.SaveChanges();
+                return Json(new { resultado = true, mensagem = "Nível académico removido com sucesso" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { resultado = false, mensagem = ex });
+            }
         }
 
         protected override void Dispose(bool disposing)

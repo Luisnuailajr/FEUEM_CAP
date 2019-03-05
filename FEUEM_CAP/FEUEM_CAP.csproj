@@ -152,6 +152,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902270814375_alteracaoDaClasseDocente.cs" />
+    <Compile Include="Migrations\201902270814375_alteracaoDaClasseDocente.Designer.cs">
+      <DependentUpon>201902270814375_alteracaoDaClasseDocente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903041221590_alteracaoDaClasseDocente1.cs" />
+    <Compile Include="Migrations\201903041221590_alteracaoDaClasseDocente1.Designer.cs">
+      <DependentUpon>201903041221590_alteracaoDaClasseDocente1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903041226312_alteracaoDaClasseDocenteParte2.cs" />
+    <Compile Include="Migrations\201903041226312_alteracaoDaClasseDocenteParte2.Designer.cs">
+      <DependentUpon>201903041226312_alteracaoDaClasseDocenteParte2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Contrato.cs" />
@@ -178,12 +190,15 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="Scripts\Costumizados\AbrirModalCategoria.js" />
+    <Content Include="Scripts\Costumizados\AbrirModalNAcademico.js" />
     <Content Include="Scripts\Costumizados\FecharPagina.js.map" />
     <None Include="Scripts\jquery-1.11.1.intellisense.js" />
     <Content Include="Scripts\Costumizados\EnvioDeFormulario.js" />
     <Content Include="Scripts\Costumizados\EnvioDoFormSemModal.js" />
     <Content Include="Scripts\Costumizados\FecharModal.js" />
     <Content Include="Scripts\Costumizados\FormApagar.js" />
+    <Content Include="Scripts\Costumizados\GravarDocente.js" />
     <Content Include="Scripts\Costumizados\Toaster.js" />
     <Content Include="Scripts\Costumizados\ValidacaoDadosDep.js" />
     <Content Include="Scripts\Costumizados\VoltarCurso.js" />
@@ -227,7 +242,6 @@
     <Content Include="Views\Categoria\AdicionarCategoria.cshtml" />
     <Content Include="Views\Categoria\DetalhesCategoria.cshtml" />
     <Content Include="Views\Categoria\EditarCategoria.cshtml" />
-    <Content Include="Views\Categoria\Index.cshtml" />
     <Content Include="Views\Categoria\RemoverCategoria.cshtml" />
     <Content Include="Views\Departamento\AdicionarDepartamento.cshtml" />
     <Content Include="Views\Departamento\DetalhesDepartamento.cshtml" />
@@ -247,8 +261,9 @@
     <Content Include="Views\NivelAcademico\AdicionarNAcademico.cshtml" />
     <Content Include="Views\NivelAcademico\DetalhesNivelAcademico.cshtml" />
     <Content Include="Views\NivelAcademico\EditarNAcdemico.cshtml" />
-    <Content Include="Views\NivelAcademico\Index.cshtml" />
     <Content Include="Views\NivelAcademico\RemoverNAcademico.cshtml" />
+    <Content Include="Views\Categoria\Index.cshtml" />
+    <Content Include="Views\NivelAcademico\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -258,6 +273,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902270814375_alteracaoDaClasseDocente.resx">
+      <DependentUpon>201902270814375_alteracaoDaClasseDocente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903041221590_alteracaoDaClasseDocente1.resx">
+      <DependentUpon>201903041221590_alteracaoDaClasseDocente1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903041226312_alteracaoDaClasseDocenteParte2.resx">
+      <DependentUpon>201903041226312_alteracaoDaClasseDocenteParte2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

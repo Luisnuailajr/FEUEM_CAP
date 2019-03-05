@@ -79,6 +79,7 @@
         
         @using (Html.BeginForm("AdicionarDepartamento", "Departamento", FormMethod.Post, new {id = "FormularioAdicaoDep"}))
         {
+            @Html.AntiForgeryToken()
             <hr/>
             <fieldset id="FormularioAdicaoDep" style="position: relative; left: 8%;">
                 <div class="form-group">

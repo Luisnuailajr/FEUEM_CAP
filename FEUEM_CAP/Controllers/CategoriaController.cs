@@ -16,7 +16,6 @@ namespace FEUEM_CAP.Controllers
     {
         private FEUMePresenceContext db = new FEUMePresenceContext();
 
-        // GET: Categoria
         public ActionResult Index()
         {
             return View(db.Categorias.ToList());
@@ -51,7 +50,7 @@ namespace FEUEM_CAP.Controllers
 
         }
 
-        // GET: Categoria/DetalhesCurso/5
+        
         public ActionResult DetalhesCategoria(int? id)
         {
             if (id == null)
@@ -63,18 +62,15 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(categoria);
+            return PartialView(categoria);
         }
 
-        // GET: Categoria/AdicionarDocente
+        
         public ActionResult AdicionarCategoria()
         {
-            return View();
+            return PartialView();
         }
 
-        // POST: Categoria/AdicionarDocente
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AdicionarCategoria([Bind(Include = "CategoriaId,DescricaoCategoria")] Categoria categoria)
@@ -83,13 +79,15 @@ namespace FEUEM_CAP.Controllers
             {
                 db.Categorias.Add(categoria);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new {resultado = true, mensagem = "Categoria gravada com sucesso"});
             }
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+                return Json(new { resultado = false, mensagem = erros});
+            }
+    }
 
-            return View(categoria);
-        }
-
-        // GET: Categoria/EditarCurso/5
+        
         public ActionResult EditarCategoria(int? id)
         {
             if (id == null)
@@ -101,12 +99,10 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(categoria);
+            return PartialView(categoria);
         }
+        
 
-        // POST: Categoria/EditarCurso/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditarCategoria([Bind(Include = "CategoriaId,DescricaoCategoria")] Categoria categoria)
@@ -115,12 +111,15 @@ namespace FEUEM_CAP.Controllers
             {
                 db.Entry(categoria).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { resultado = true, mensagem = "Categoria actualizada com sucesso" });
             }
-            return View(categoria);
+            {
+                IEnumerable<ModelError> erros = ModelState.Values.SelectMany(item => item.Errors);
+                return Json(new { resultado = false, mensagem = erros });
+            }
         }
 
-        // GET: Categoria/RemoverCurso/5
+        
         public ActionResult RemoverCategoria(int? id)
         {
             if (id == null)
@@ -132,18 +131,26 @@ namespace FEUEM_CAP.Controllers
             {
                 return HttpNotFound();
             }
-            return View(categoria);
+            return PartialView(categoria);
         }
 
-        // POST: Categoria/RemoverCurso/5
-        [HttpPost, ActionName("RemoverCurso")]
+        
+        [HttpPost, ActionName("RemoverCategoria")]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmarRemocao(int id)
         {
-            Categoria categoria = db.Categorias.Find(id);
-            db.Categorias.Remove(categoria);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            try
+            {
+                Categoria categoria = db.Categorias.Find(id);
+                db.Categorias.Remove(categoria);
+                db.SaveChanges();
+                return Json(new {resultado = true, mensagem = "Categoria removida com sucesso"});
+            }
+            catch (Exception ex)
+            {
+                return Json(new { resultado = false, mensagem = ex.Message });
+            }
         }
 
         protected override void Dispose(bool disposing)

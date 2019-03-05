@@ -27,9 +27,7 @@ function tratarRetorno(resultadoServidor) {
     if (resultadoServidor.resultado) {
 
         toastr["success"](resultadoServidor.mensagem);
-
         //$("#minhaModal").modal("hide");
-
         //$("#gridDados").bootgrid("reload");
 
     } else {
